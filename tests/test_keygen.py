@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from keygen import store, generate
+from src.keygen import store, generate
 
 
 @pytest.fixture(scope='module')
