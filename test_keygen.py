@@ -49,7 +49,16 @@ def test_json_file_update(test_filepath, entry_one, entry_two):
 
 
 def test_generate():
-    universal_materials = generate()
+    THRESHOLD: int = 2
+    SHARES: int = 3
+    DURATION: int = 86_400 * 365  # seconds
+    DOMAIN = 'ibex'
+    NODES: List[str] = [
+        # "https://ibex.nucypher.network:9151",
+        # "https://143.198.239.218:9151"  # james testnet
+    ]
+    LABEL: str = f'{THRESHOLD}-of-{SHARES}-{DOMAIN}'
+    universal_materials = generate(THRESHOLD, SHARES, DOMAIN, NODES, DURATION, LABEL)
     expected_fields = {
         'treasure_map',
         'policy_public_key',
