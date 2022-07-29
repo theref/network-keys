@@ -9,9 +9,13 @@ from eth_utils import to_checksum_address
 from nucypher.characters.lawful import Bob, Alice, Ursula
 from nucypher_core.umbral import SecretKey
 
+from nucypher.policy.reservoir import PrefetchStrategy
+
 
 def store(label: str, universal_materials: Dict[str, str], filepath: str) -> None:
     filepath = Path(filepath)
+    if filepath.parent.exists() == False:
+        filepath.parent.mkdir()
     filepath.touch(exist_ok=True)
     entry = {label: universal_materials}
     with open(filepath, 'r+') as file:
@@ -48,7 +52,7 @@ def generate(threshold: int, shares: int, domain: str, nodes: List[str], duratio
     click.secho('peering and sampling...', fg='yellow')
     policy = alice.grant(bob=universal_bob,
                          ursulas=ursulas,
-                         label=LABEL.encode(),
+                         label=label.encode(),
                          threshold=threshold,
                          shares=shares,
                          duration=duration)
