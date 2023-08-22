@@ -79,31 +79,24 @@ def generate() -> Dict[str, str]:
     )
     node_addresses = [to_checksum_address(addr) for addr in decrypted_treasure_map.destinations]
 
-    # Export
-    payload = {
-
+    return {
         # policy
         'treasure_map': bytes(policy.treasure_map).hex(),
         'policy_public_key': bytes(policy.public_key).hex(),
         'threshold': THRESHOLD,
         'shares': SHARES,
-
         # alice
         'alice_verifying_key': bytes(alice.stamp).hex(),
         # TODO: store Alice's secret?
-
         # bob
         'bob_verifying_key': bytes(bob_verifying_key).hex(),
         'bob_verifying_secret': bob_verifying_secret.to_secret_bytes().hex(),
         'bob_encrypting_key': bytes(bob_decrypting_key).hex(),
         'bob_encrypting_secret': bob_decrypting_secret.to_secret_bytes().hex(),
-
         # ursulas
         'domain': DOMAIN,
-        'nodes': node_addresses
-
+        'nodes': node_addresses,
     }
-    return payload
 
 
 if __name__ == '__main__':
